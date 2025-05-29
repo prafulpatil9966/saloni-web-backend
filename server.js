@@ -17,7 +17,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 app.use('/api/clients', clientRoutes);
 
-app.get("/",()=>{
+app.get("/",(req,res)=>{
   res.send('the db is connected')
 })
 
