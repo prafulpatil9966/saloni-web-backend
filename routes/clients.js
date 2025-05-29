@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
 // Get all clients
 router.get('/', async (req, res) => {
     try {
-        const clients = await Client.find();
+        const clients = await Client.find().sort({ createdAt: -1 }); // Newest first
         res.status(200).json(clients);
     } catch (error) {
         res.status(500).json({ error: 'Failed to fetch clients', details: error.message });
@@ -60,14 +60,14 @@ router.delete('/:id', async (req, res) => {
     try {
         const id = req.params.id;
         console.log("Trying to delete client with ID:", id);
-        
+
         const deletedClient = await Client.findByIdAndDelete(id);
-        
+
         if (!deletedClient) {
             console.log("Client not found with ID:", id);
             return res.status(404).json({ error: 'Client not found' });
         }
-        
+
         res.status(200).json({ message: 'Client deleted successfully' });
     } catch (error) {
         console.error("Error deleting client:", error);

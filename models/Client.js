@@ -1,17 +1,20 @@
 const mongoose = require('mongoose');
 
 const clientSchema = new mongoose.Schema({
-  clientName: { type: String, required: true },
-  workDoneBy: { type: String, required: true },
+  clientName: String,
+  workDoneBy: String,
   workItems: [
     {
-      workType: { type: String, required: true },
-      price: { type: Number, required: true }
+      workType: String,
+      price: Number
     }
   ],
-  paymentMode: { type: String, required: true },
-  note: { type: String }
+  paymentMode: String,
+  note: String
+}, {
+  timestamps: true  // adds createdAt and updatedAt fields
 });
+
 
 const Client = mongoose.model('Client', clientSchema);
 
