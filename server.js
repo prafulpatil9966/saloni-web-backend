@@ -8,6 +8,7 @@ const clientRoutes = require('./routes/clients');
 const app = express();
 app.use(cors());
 app.use(express.json());
+const port = process.env.PORT || 5000
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB connected'))
@@ -16,7 +17,10 @@ mongoose.connect(process.env.MONGO_URI)
 
 app.use('/api/clients', clientRoutes);
 
+app.get("/",()=>{
+  res.send('the db is connected')
+})
 
-app.listen(5000, () => {
+app.listen(port, () => {
   console.log('Server started on port 5000');
 });
